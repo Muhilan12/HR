@@ -1,0 +1,513 @@
+.advi-page-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 50%,
+      transparent 100%
+    );
+  }
+  
+  &::before { top: 0; }
+  &::after { bottom: 0; }
+}
+
+.advi-advertisement {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__container {
+    text-align: center;
+    max-width: 1000px;
+    width: 100%;
+    padding: 5rem 3rem;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.08),
+      0 8px 32px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        circle at 50% 80%,
+        rgba(59, 130, 246, 0.08) 0%,
+        transparent 70%
+      );
+      opacity: 1;
+      pointer-events: none;
+      border-radius: 32px;
+    }
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 3rem;
+    color: white;
+    box-shadow: 
+      0 8px 32px rgba(59, 130, 246, 0.25),
+      0 4px 12px rgba(59, 130, 246, 0.15);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: advi-fadeInUp 0.6s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  &__title {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0 auto 5rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    overflow: hidden;
+    max-width: 800px;
+    
+    &--animated .advi-advertisement__title-letter {
+      animation: advi-letterReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      opacity: 0;
+      transform: translateY(10px) scale(1.2);
+      filter: blur(5px);
+    }
+  }
+
+  &__title-letter {
+    display: inline-block;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__content {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__arc-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__arc-line {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    pointer-events: none;
+    
+    path {
+      transition: all 0.5s ease;
+    }
+  }
+
+  &__arc-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    width: 300px;
+    text-align: center;
+    margin-top: -50px; // Adjust to position exactly at arc center
+  }
+
+  &__center-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 
+      0 15px 50px rgba(59, 130, 246, 0.15),
+      0 8px 30px rgba(59, 130, 246, 0.1);
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    animation: advi-centerPulse 3s ease-in-out infinite;
+  }
+
+  &__center-title {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__center-description {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  &__cards-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__card {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    
+    &-inner {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 15px 45px rgba(0, 0, 0, 0.12),
+        0 8px 25px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(229, 231, 235, 0.9);
+      transition: all 0.4s ease;
+      
+      img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        transition: all 0.4s ease;
+      }
+    }
+
+    &:hover &-inner {
+      transform: scale(1.1);
+      box-shadow: 
+        0 20px 60px rgba(59, 130, 246, 0.25),
+        0 10px 35px rgba(59, 130, 246, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    &--active &-inner {
+      animation: advi-activeCard 3s ease-in-out infinite;
+      transform: scale(1.15);
+      box-shadow: 
+        0 25px 70px rgba(59, 130, 246, 0.35),
+        0 12px 40px rgba(59, 130, 246, 0.2),
+        0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.5);
+      
+      img {
+        transform: scale(1.15);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes advi-letterReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(1.2);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes advi-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes advi-activeCard {
+  0%, 100% {
+    box-shadow: 
+      0 25px 70px rgba(59, 130, 246, 0.35),
+      0 12px 40px rgba(59, 130, 246, 0.2),
+      0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 30px 80px rgba(59, 130, 246, 0.45),
+      0 15px 50px rgba(59, 130, 246, 0.25),
+      0 0 0 4px rgba(59, 130, 246, 0.15);
+  }
+}
+
+@keyframes advi-centerPulse {
+  0%, 100% {
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: 
+      0 15px 50px rgba(59, 130, 246, 0.15),
+      0 8px 30px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(calc(-50% - 5px));
+    box-shadow: 
+      0 20px 60px rgba(59, 130, 246, 0.2),
+      0 10px 40px rgba(59, 130, 246, 0.15);
+  }
+}
+
+// Responsive styles
+@media (max-width: 1200px) {
+  .advi-advertisement {
+    &__arc-line {
+      width: 700px;
+      height: 350px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .advi-advertisement {
+    &__container {
+      padding: 4rem 2rem;
+    }
+    
+    &__arc-line {
+      width: 600px;
+      height: 300px;
+    }
+    
+    &__arc-center {
+      width: 260px;
+    }
+    
+    &__center-title {
+      font-size: 1.6rem;
+    }
+    
+    &__card {
+      width: 90px;
+      height: 90px;
+      
+      &-inner img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .advi-advertisement {
+    padding: 2rem 1rem;
+    
+    &__container {
+      padding: 3rem 1.5rem;
+      border-radius: 24px;
+    }
+    
+    &__title {
+      margin-bottom: 4rem;
+      font-size: 1.75rem;
+    }
+    
+    &__content {
+      height: 450px;
+    }
+    
+    &__arc-container {
+      height: 350px;
+    }
+    
+    &__arc-line {
+      width: 500px;
+      height: 250px;
+    }
+    
+    &__arc-center {
+      width: 220px;
+    }
+    
+    &__center-content {
+      padding: 1.25rem 1.5rem;
+    }
+    
+    &__center-title {
+      font-size: 1.4rem;
+    }
+    
+    &__center-description {
+      font-size: 1rem;
+    }
+    
+    &__card {
+      width: 80px;
+      height: 80px;
+      
+      &-inner {
+        border-radius: 20px;
+        
+        img {
+          width: 44px;
+          height: 44px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .advi-advertisement {
+    &__arc-line {
+      width: 400px;
+      height: 200px;
+    }
+    
+    &__card {
+      width: 70px;
+      height: 70px;
+      
+      &-inner img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .advi-advertisement {
+    &__container {
+      padding: 2.5rem 1.25rem;
+    }
+    
+    &__title {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    &__content {
+      height: 400px;
+    }
+    
+    &__arc-container {
+      height: 300px;
+    }
+    
+    &__arc-line {
+      width: 320px;
+      height: 160px;
+    }
+    
+    &__arc-center {
+      width: 200px;
+    }
+    
+    &__center-content {
+      padding: 1rem 1.25rem;
+    }
+    
+    &__center-title {
+      font-size: 1.2rem;
+    }
+    
+    &__center-description {
+      font-size: 0.9rem;
+    }
+    
+    &__card {
+      width: 65px;
+      height: 65px;
+      
+      &-inner {
+        border-radius: 18px;
+        
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+}
+
+// Animation for smooth card movement
+.advi-advertisement__card {
+  animation: advi-cardFloat 6s ease-in-out infinite;
+  
+  &:nth-child(2n) {
+    animation-delay: -1s;
+  }
+  
+  &:nth-child(3n) {
+    animation-delay: -2s;
+  }
+}
+
+@keyframes advi-cardFloat {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+  }
+  50% {
+    filter: brightness(1.05) drop-shadow(0 8px 25px rgba(59, 130, 246, 0.2));
+  }
+}

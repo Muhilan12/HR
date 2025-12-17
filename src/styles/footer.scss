@@ -1,0 +1,273 @@
+// Footer SCSS Styles
+
+.footer {
+  background-color: hsl(0, 9%, 98%);
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  overflow: hidden;
+  
+  // CSS variables for mouse position
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 5rem;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
+  }
+
+  &__description {
+    max-width: 280px;
+
+    p {
+      color: hsl(0, 0%, 9%);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      font-weight: 700px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+  }
+
+  &__nav-column {
+    min-width: 100px;
+
+    h4 {
+      font-weight: 500;
+      color: hsl(222.2, 84%, 4.9%);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    a {
+      color: hsl(215.4, 16.3%, 46.9%);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: hsl(14, 89%, 55%);
+      }
+    }
+  }
+
+  &__social {
+    h4 {
+      font-weight: 500;
+      color: hsl(222.2, 84%, 4.9%);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  &__social-icons {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid hsl(0, 0%, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(222.2, 84%, 4.9%);
+    transition: all 0.2s ease;
+    background: transparent;
+
+    &:hover {
+      border-color: hsl(14, 89%, 55%);
+      color: hsl(14, 89%, 55%);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__brand {
+    position: relative;
+    margin: 0 -1.5rem;
+
+    @media (min-width: 1024px) {
+      margin: 0 -5rem;
+    }
+  }
+
+  &__brand-text {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 15vw;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    user-select: none;
+    overflow: hidden;
+    padding-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      font-size: 14vw;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 13vw;
+    }
+  }
+
+  &__letter {
+    display: inline-block;
+    color: hsl(14, 89%, 55%);
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(-40px);
+    will-change: transform, filter, opacity;
+    
+    // Initial state - hidden
+    &--initial {
+      opacity: 0;
+      filter: blur(20px);
+      transform: translateY(-40px);
+    }
+    
+    // Hover effect for individual letters
+    &:hover {
+      transform: translateY(-10px) scale(1.1);
+      z-index: 10;
+    }
+  }
+
+  &__gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: linear-gradient(to top, hsl(0, 0%, 100%), transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  // Mouse position indicator
+  &__mouse-indicator {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(251, 146, 60, 0.1) 0%,
+      rgba(251, 146, 60, 0.05) 30%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(calc(var(--mouse-x) - 50%), calc(var(--mouse-y) - 50%));
+    transition: transform 0.1s ease-out;
+    opacity: 0.5;
+  }
+
+  // Enhanced hover effect using pseudo-element
+  &__container::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at var(--mouse-x) var(--mouse-y),
+      rgba(251, 146, 60, 0.03) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  // Individual letter glow on hover
+  .footer__letter:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(
+      circle at center,
+      rgba(251, 146, 60, 0.2) 0%,
+      transparent 70%
+    );
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+}
+
+// Original letter reveal animation (removed or disabled)
+// @keyframes letterReveal {
+//   0% {
+//     opacity: 0;
+//     filter: blur(20px);
+//     transform: translateY(-40px);
+//   }
+//   40% {
+//     opacity: 0.4;
+//     filter: blur(12px);
+//     transform: translateY(-20px);
+//   }
+//   70% {
+//     opacity: 0.8;
+//     filter: blur(5px);
+//     transform: translateY(-5px);
+//   }
+//   100% {
+//     opacity: 1;
+//     filter: blur(0);
+//     transform: translateY(0);
+//   }
+// }
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .footer {
+    &__container {
+      cursor: default;
+    }
+    
+    &__mouse-indicator {
+      display: none;
+    }
+    
+    .footer__container::before {
+      opacity: 0;
+    }
+  }
+}
