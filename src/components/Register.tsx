@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../api/apiConfig";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "../styles/login.scss";
 
 type MessageType = {
@@ -10,6 +10,8 @@ type MessageType = {
 
 const Register = () => {
   const [showSplash, setShowSplash] = useState(true);
+  const navigate = useNavigate();
+
 
   const [message, setMessage] = useState<MessageType>({
     text: "",
@@ -104,8 +106,8 @@ const Register = () => {
       });
 
       setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
+  navigate("/login");
+}, 2000);
     } catch (error) {
       setMessage({
         text: "Network error. Please try again later.",
